@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="id" style="margin:0;padding:0;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ujian Online PTS Informatika Kelas XII Fase F+ — SMA Seminari St. Yoh. Berkhmans Mataloko</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4/fonts/remixicon.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+(function(){
+  var css = `
+  :root{
+    --bg:#f5efe2; --card:#fdfbf4; --card-solid:#ffffff; --text:#2c1d16; --muted:#8a7565;
+    --accent:#7c1f2e; --accent-deep:#5c1420; --accent-soft:rgba(124,31,46,.10);
+    --accent2:#b8892b; --accent2-soft:rgba(184,137,43,.14);
+    --border:rgba(44,29,22,.12); --success:#3d7a4a; --success-soft:rgba(61,122,74,.12);
+    --danger:#a83232; --danger-soft:rgba(168,50,50,.10); --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:"Source Sans 3",system-ui,sans-serif;line-height:1.55;margin:0;
+    background-image:radial-gradient(ellipse 80% 50% at 50% -10%, rgba(184,137,43,.10), transparent 60%);}
+  .serif{font-family:"EB Garamond",Georgia,serif}
+  .hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--accent-deep),var(--accent) 55%,#8e2a3a);color:#f7efdd;border-radius:0 0 28px 28px;padding:28px 20px 70px;margin-bottom:-50px;}
+  .hero::before{content:"";position:absolute;inset:0;opacity:.08;pointer-events:none;
+    background-image:linear-gradient(rgba(247,239,221,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(247,239,221,.6) 1px,transparent 1px);background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(ellipse 70% 80% at 50% 0%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse 70% 80% at 50% 0%,#000 30%,transparent 75%);}
+  .eyebrow{display:inline-block;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#f0d98a;border:1px solid rgba(240,217,138,.45);padding:4px 12px;border-radius:999px;margin-bottom:8px;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 1px 2px rgba(44,29,22,.05),0 8px 24px rgba(44,29,22,.06);padding:22px;position:relative;}
+  .card-solid{background:var(--card-solid)}
+  .arch-top{height:14px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));border-radius:var(--radius) var(--radius) 0 0;margin:-22px -22px 18px;}
+  .field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px}
+  .field label .req{color:var(--danger)}
+  .field input,.field select{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:10px;background:#fff;font-family:inherit;font-size:.95rem;color:var(--text);}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .field.invalid input,.field.invalid select{border-color:var(--danger);background:var(--danger-soft)}
+  .err-msg{color:var(--danger);font-size:.78rem;margin-top:5px;min-height:1em;display:block}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:10px;font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;border:1px solid transparent;transition:transform .15s,box-shadow .2s,background .2s;text-decoration:none}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 16px rgba(124,31,46,.3)}
+  .btn-primary:hover{background:var(--accent-deep)}
+  .btn-gold{background:var(--accent2);color:#fff;box-shadow:0 6px 16px rgba(184,137,43,.35)}
+  .btn-gold:hover{background:#9a721f}
+  .btn-ghost{background:transparent;color:var(--muted);border-color:var(--border)}
+  .btn-ghost:hover{color:var(--text);border-color:var(--muted)}
+  .btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+  .notice{display:flex;gap:10px;align-items:flex-start;background:var(--accent2-soft);border:1px solid rgba(184,137,43,.35);color:#6b4f10;border-radius:10px;padding:12px 14px;font-size:.85rem;margin-bottom:16px}
+  .view{display:none}
+  .view.active{display:block;animation:fadeUp .4s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+  .pill.gold{background:var(--accent2-soft);color:#8a6414}
+  .pill.green{background:var(--success-soft);color:var(--success)}
+  .pill.danger{background:var(--danger-soft);color:var(--danger)}
+  .exam-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--card-solid);border:1px solid var(--border);border-radius:var(--radius);padding:12px 18px;margin-bottom:14px;box-shadow:0 1px 2px rgba(44,29,22,.05),0 8px 24px rgba(44,29,22,.06);position:sticky;top:0;z-index:10;}
+  .timer{font-family:"EB Garamond",serif;font-weight:700;font-size:1.5rem;letter-spacing:1px;padding:4px 14px;border-radius:8px;background:var(--accent);color:#fff;min-width:110px;text-align:center;font-variant-numeric:tabular-nums;}
+  .timer.warn{background:var(--danger);animation:blink 1s infinite}
+  @keyframes blink{50%{opacity:.6}}
+  .violation-banner{display:none;align-items:center;gap:8px;background:var(--danger-soft);border:1px solid rgba(168,50,50,.4);color:var(--danger);border-radius:10px;padding:10px 14px;font-size:.85rem;font-weight:600;margin-bottom:12px}
+  .violation-banner.show{display:flex}
+  .q-num-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-top:10px}
+  .q-num{padding:8px 0;border-radius:8px;border:1px solid var(--border);background:#fff;font-weight:700;font-size:.85rem;cursor:pointer;text-align:center;transition:all .15s;color:var(--muted)}
+  .q-num:hover{border-color:var(--accent)}
+  .q-num.answered{background:var(--success);color:#fff;border-color:var(--success)}
+  .q-num.flagged{border:2px solid var(--accent2);color:#8a6414}
+  .q-num.answered.flagged{background:var(--success);border:2px solid var(--accent2);color:#fff}
+  .q-num.current{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .opt{display:flex;gap:10px;align-items:flex-start;padding:11px 14px;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;cursor:pointer;background:#fff;transition:all .15s;user-select:none}
+  .opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+  .opt .letter{flex:0 0 auto;width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:var(--muted)}
+  .opt.sel .letter{background:var(--accent);border-color:var(--accent);color:#fff}
+  .qtext{user-select:none;-webkit-user-select:none;margin-bottom:14px;line-height:1.6}
+  .qtext .stmt{display:block;margin:4px 0 4px 8px;font-size:.92rem}
+  .section-head{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:5px 12px;border-radius:6px;display:inline-block;margin-bottom:10px}
+  .match-list{background:var(--accent2-soft);border:1px solid rgba(184,137,43,.35);border-radius:10px;padding:12px 16px;font-size:.88rem;margin-bottom:14px;columns:2;column-gap:24px}
+  .match-list div{break-inside:avoid;margin:2px 0}
+  .isian-input{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:10px;font-family:inherit;font-size:.95rem;background:#fff}
+  .isian-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .review-item{border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;background:#fff}
+  .review-item.ok{border-left:4px solid var(--success)}
+  .review-item.no{border-left:4px solid var(--danger)}
+  .review-item.manual{border-left:4px solid var(--accent2)}
+  .score-big{font-family:"EB Garamond",serif;font-size:4rem;font-weight:700;line-height:1;color:var(--accent)}
+  .badge-sample{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:.74rem;font-weight:700;color:#8a6414;background:var(--accent2-soft);border:1px solid rgba(184,137,43,.35);padding:4px 12px;border-radius:999px}
+  .error-banner{display:none;align-items:center;gap:10px;background:var(--danger-soft);border:1px solid rgba(168,50,50,.35);color:var(--danger);border-radius:10px;padding:12px 16px;font-size:.88rem;font-weight:600;margin-bottom:14px}
+  .error-banner.show{display:flex}
+  .drive-box{background:var(--success-soft);border:1px solid rgba(61,122,74,.35);border-radius:10px;padding:14px 16px;margin:14px 0;text-align:left;font-size:.88rem;}
+  @media(max-width:640px){.resp2{grid-template-columns:1fr!important}.match-list{columns:1!important}}
+  @media(max-width:900px){.resp-exam{grid-template-columns:1fr!important}}
+  `;
+  var s=document.createElement('style');s.textContent=css;document.head.appendChild(s);
+})();
+</script>
+</head>
+<body>
+<div style="position:relative;box-sizing:border-box;">
+  <header class="hero">
+    <div style="max-width:1100px;margin:0 auto;position:relative;display:flex;gap:18px;align-items:center;flex-wrap:wrap;">
+      <div style="width:64px;height:64px;flex:0 0 auto;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f3d98a,var(--accent2) 70%);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px rgba(247,239,221,.18),0 8px 20px rgba(0,0,0,.25);" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#5c1420" stroke-width="2.4" stroke-linecap="round">
+          <path d="M24 6v30"/><path d="M15 17h18"/><circle cx="24" cy="40" r="2.6" fill="#5c1420" stroke="none"/>
+          <path d="M24 14c-4-3-8-1-8 3 0 3 3 5 8 7 5-2 8-4 8-7 0-4-4-6-8-3z" fill="rgba(92,20,32,.18)" stroke="#5c1420"/>
+        </svg>
+      </div>
+      <div style="flex:1;min-width:220px;">
+        <span class="eyebrow">Penilaian Tengah Semester (PTS) · Tahun Pelajaran 2026/2027</span>
+        <h1 class="serif" style="font-size:clamp(1.25rem,3vw,1.9rem);font-weight:700;line-height:1.15;margin:0;">Ujian Online — Informatika Kelas XII Fase F+</h1>
+        <p style="color:rgba(247,239,221,.82);margin:6px 0 0;font-size:.9rem;">SMA Seminari St. Yoh. Berkhmans Mataloko · Alokasi 90 menit · 40 butir</p>
+      </div>
+      <div style="font-style:italic;font-family:'EB Garamond',serif;color:#f0d98a;font-size:.98rem;text-align:right;">
+        &ldquo;Maxime facere minima&rdquo;
+        <div style="color:rgba(247,239,221,.7);font-family:'Source Sans 3',sans-serif;font-style:normal;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;margin-top:3px;">Melakukan hal-hal kecil dengan sebesar-besarnya</div>
+      </div>
+    </div>
+  </header>
+
+  <main style="max-width:1100px;margin:0 auto;padding:64px 18px 50px;position:relative;">
+
+    <div class="error-banner" id="errorBanner" role="alert">
+      <i class="ri-alert-line" style="font-size:18px;"></i><span id="errorText">Terjadi kendala.</span>
+      <button id="errorClose" style="margin-left:auto;background:transparent;border:none;color:var(--danger);font-weight:700;cursor:pointer;font-size:1.1rem;">×</button>
+    </div>
+
+    <section class="view active" id="viewLogin">
+      <div class="card card-solid" style="max-width:560px;margin:0 auto;">
+        <div class="arch-top"></div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+          <span style="width:34px;height:34px;border-radius:9px;background:var(--accent2-soft);color:#8a6414;display:flex;align-items:center;justify-content:center;font-size:16px;"><i class="ri-login-box-line"></i></span>
+          <span class="serif" style="font-size:1.2rem;font-weight:700;">Login &amp; Token Peserta Ujian</span>
+        </div>
+        <p style="color:var(--muted);font-size:.85rem;margin-bottom:16px;">Lengkapi biodata dan masukkan token ujian yang diberikan panitia.</p>
+        <div class="notice"><i class="ri-information-line" style="margin-top:2px;"></i><span>Token: <code style="background:#fff;padding:1px 6px;border-radius:4px;border:1px solid var(--border);">informatika2026</code>. Sistem mendeteksi pindah tab &amp; keluar fullscreen; <strong>3 pelanggaran = ujian berakhir otomatis.</strong></span></div>
+        <form id="loginForm" novalidate>
+          <div class="field" style="margin-bottom:12px;"><label>Nama Lengkap <span class="req">*</span></label><input type="text" id="lNama" placeholder="Nama lengkap peserta" autocomplete="off"><span class="err-msg" data-for="lNama"></span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" class="resp2">
+            <div class="field"><label>Nomor Peserta / NIS <span class="req">*</span></label><input type="text" id="lNis" placeholder="Nomor induk" maxlength="12" autocomplete="off"><span class="err-msg" data-for="lNis"></span></div>
+            <div class="field"><label>Kelas <span class="req">*</span></label>
+              <select id="lKelas"><option value="">— Pilih —</option><option>XIIA</option><option>XIIB</option><option>XIIC</option></select>
+              <span class="err-msg" data-for="lKelas"></span></div>
+          </div>
+          <div class="field" style="margin-top:12px;"><label>Token Ujian <span class="req">*</span></label><input type="password" id="lToken" placeholder="Masukkan token dari panitia" autocomplete="off"><span class="err-msg" data-for="lToken"></span></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:18px;"><i class="ri-arrow-right-line"></i> Lanjut ke Aturan Ujian</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="view" id="viewRules">
+      <div class="card card-solid" style="max-width:720px;margin:0 auto;">
+        <div class="arch-top"></div>
+        <span class="serif" style="font-size:1.2rem;font-weight:700;">Petunjuk &amp; Aturan Ujian</span>
+        <div style="margin:14px 0;font-size:.92rem;line-height:1.8;">
+          <div style="display:flex;gap:10px;margin-bottom:6px;"><i class="ri-checkbox-circle-line" style="color:var(--success);flex:0 0 auto;margin-top:3px;"></i><span>Berdoalah sebelum mengerjakan soal.</span></div>
+          <div style="display:flex;gap:10px;margin-bottom:6px;"><i class="ri-checkbox-circle-line" style="color:var(--success);flex:0 0 auto;margin-top:3px;"></i><span>Soal terdiri dari 5 bagian: Pilihan Ganda (15), Pilihan Ganda Komplek (5), Menjodohkan (5), Benar-Salah (10), Isian Singkat (5).</span></div>
+          <div style="display:flex;gap:10px;margin-bottom:6px;"><i class="ri-checkbox-circle-line" style="color:var(--success);flex:0 0 auto;margin-top:3px;"></i><span>Waktu: <strong>90 menit</strong>. Waktu habis → jawaban terkirim otomatis.</span></div>
+          <div style="display:flex;gap:10px;margin-bottom:6px;"><i class="ri-error-warning-line" style="color:var(--danger);flex:0 0 auto;margin-top:3px;"></i><span><strong>Dilarang:</strong> copy-paste, membuka tab/aplikasi lain, keluar dari mode layar penuh. <strong>3× pelanggaran = ujian berakhir &amp; jawaban otomatis terkirim.</strong></span></div>
+          <div style="display:flex;gap:10px;margin-bottom:6px;"><i class="ri-checkbox-circle-line" style="color:var(--success);flex:0 0 auto;margin-top:3px;"></i><span>Setelah selesai, <strong>file jawaban otomatis terunduh</strong> — unggah file tersebut ke folder Drive panitia. Jawaban juga tersimpan di perangkat (localStorage).</span></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-ghost" id="btnBackLogin"><i class="ri-arrow-left-line"></i> Kembali</button>
+          <button class="btn btn-gold" id="btnStart" style="flex:1;min-width:200px;"><i class="ri-fullscreen-line"></i> Mulai Ujian (Layar Penuh)</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="viewExam">
+      <div class="exam-bar">
+        <div style="min-width:140px;"><div class="serif" style="font-weight:700;font-size:.95rem;line-height:1.2;" id="exName">—</div><div style="font-size:.75rem;color:var(--muted);" id="exMeta">—</div></div>
+        <div style="flex:1;"></div>
+        <span class="pill gold"><i class="ri-file-list-3-line"></i> Informatika · 40 soal</span>
+        <div class="timer" id="timer">90:00</div>
+        <button class="btn btn-primary" id="btnSubmit" style="padding:9px 16px;font-size:.85rem;"><i class="ri-send-plane-line"></i> Selesai &amp; Kirim</button>
+      </div>
+      <div class="violation-banner" id="violBanner"><i class="ri-error-warning-line"></i><span id="violText">Pelanggaran tercatat: 0/3</span></div>
+
+      <div style="display:grid;grid-template-columns:1fr 260px;gap:16px;" class="resp-exam">
+        <div class="card card-solid">
+          <span class="section-head" id="qSection">Bagian I — Pilihan Ganda</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+            <span class="serif" style="font-weight:700;font-size:1.1rem;">Soal <span id="qNo">1</span> dari 40 <span id="qScore" class="pill" style="margin-left:6px;">skor 2</span></span>
+            <label style="display:flex;align-items:center;gap:6px;font-size:.85rem;cursor:pointer;user-select:none;"><input type="checkbox" id="flagChk" style="width:16px;height:16px;accent-color:var(--accent2);"> <span style="color:#8a6414;font-weight:600;"><i class="ri-bookmark-line"></i> Ragu-ragu</span></label>
+          </div>
+          <div class="qtext" id="qText"></div>
+          <div id="qOptions"></div>
+          <div style="display:flex;justify-content:space-between;margin-top:18px;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-ghost" id="btnPrev"><i class="ri-arrow-left-line"></i> Sebelumnya</button>
+            <button class="btn btn-primary" id="btnNext">Berikutnya <i class="ri-arrow-right-line"></i></button>
+          </div>
+        </div>
+        <div class="card card-solid" style="align-self:start;">
+          <div style="font-weight:700;font-size:.9rem;margin-bottom:4px;">Navigasi Soal</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:6px;"><span style="display:inline-block;width:12px;height:12px;background:var(--success);border-radius:3px;vertical-align:middle;"></span> terjawab &nbsp; <span style="display:inline-block;width:12px;height:12px;border:2px solid var(--accent2);border-radius:3px;vertical-align:middle;"></span> ragu</div>
+          <div class="q-num-grid" id="qGrid"></div>
+          <div style="margin-top:14px;font-size:.8rem;color:var(--muted);">Terjawab: <strong id="cntAnswered" style="color:var(--success);">0</strong>/40 · Ragu: <strong id="cntFlagged" style="color:#8a6414;">0</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="viewWarning">
+      <div class="card card-solid" style="max-width:520px;margin:40px auto;text-align:center;border:2px solid var(--danger);">
+        <div style="width:70px;height:70px;border-radius:50%;background:var(--danger-soft);color:var(--danger);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 14px;"><i class="ri-error-warning-fill"></i></div>
+        <h2 class="serif" style="font-size:1.4rem;color:var(--danger);margin:0 0 8px;">Peringatan Pelanggaran</h2>
+        <p style="font-size:.92rem;margin-bottom:6px;">Terdeteksi: <strong id="warnReason">keluar dari halaman ujian</strong>.</p>
+        <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;">Pelanggaran ke-<strong id="warnCount" style="color:var(--danger);">1</strong> dari 3. Pada pelanggaran ke-3 ujian berakhir otomatis dan jawaban langsung terkirim.</p>
+        <button class="btn btn-primary" id="btnWarnOk" style="width:100%;"><i class="ri-arrow-right-line"></i> Saya Mengerti, Lanjutkan Ujian</button>
+      </div>
+    </section>
+
+    <section class="view" id="viewResult">
+      <div class="card card-solid" style="text-align:center;margin-bottom:16px;">
+        <div class="arch-top"></div>
+        <span class="serif" style="font-size:1.2rem;font-weight:700;">Jawaban Terkirim — <span id="resName">—</span></span>
+        <div style="color:var(--muted);font-size:.85rem;margin-bottom:14px;" id="resMeta">—</div>
+        <div class="score-big" id="resScore">—</div>
+        <div style="font-size:.9rem;color:var(--muted);">Nilai (skala 100, penilaian otomatis 39 soal)</div>
+        <div style="margin-top:10px;" id="resStatus"></div>
+        <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:16px;font-size:.88rem;">
+          <div>Benar: <strong id="resBenar" style="color:var(--success);">—</strong></div>
+          <div>Salah: <strong id="resSalah" style="color:var(--danger);">—</strong></div>
+          <div>Skor: <strong id="resSkor">—</strong>/77</div>
+          <div>Pelanggaran: <strong id="resViol">0</strong></div>
+        </div>
+        <div class="drive-box" style="text-align:left;">
+          <div style="font-weight:700;margin-bottom:6px;color:var(--success);"><i class="ri-check-double-line"></i> Arsip jawaban berhasil dibuat</div>
+          <div style="font-size:.85rem;line-height:1.6;">File jawaban (<code>.txt</code>) otomatis terunduh dan tersimpan di perangkat ini. <strong>Langkah terakhir:</strong> unggah file tersebut ke folder Drive panitia dengan menekan tombol di bawah, lalu konfirmasi kepada pengawas.</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+            <button class="btn btn-gold" id="btnDownload"><i class="ri-download-line"></i> Unduh Ulang File Jawaban</button>
+            <a class="btn btn-primary" id="btnDrive" href="https://drive.google.com/drive/folders/1w0inhmbiomqGhZjYHoZvFYvR0TXIXCdn?usp=sharing" target="_blank" rel="noopener"><i class="ri-folder-open-line"></i> Buka Folder Drive &amp; Unggah</a>
+          </div>
+        </div>
+        <div style="margin-top:10px;"><button class="btn btn-ghost" id="btnTutup"><i class="ri-logout-box-line"></i> Selesai / Keluar</button></div>
+      </div>
+      <div class="card card-solid">
+        <span class="serif" style="font-size:1.05rem;font-weight:700;">Pembahasan &amp; Kunci Jawaban</span>
+        <p style="font-size:.82rem;color:var(--muted);margin:6px 0 14px;">Soal isian nomor 40 (esai) dinilai manual oleh guru (maks +3 poin).</p>
+        <div id="reviewList"></div>
+      </div>
+    </section>
+
+    <footer style="margin-top:30px;text-align:center;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);padding-top:16px;">
+      <div class="serif" style="font-style:italic;color:var(--accent);font-size:.95rem;margin-bottom:4px;">&ldquo;Melakukan hal-hal biasa dengan cara yang luar biasa.&rdquo; — St. Yohanes Berchmans, SJ</div>
+      <div>SMA Seminari St. Yoh. Berkhmans Mataloko · Seminari Menengah Katolik</div>
+      <span class="badge-sample"><i class="ri-shield-check-line"></i> Sistem ujian online — jawaban dinilai otomatis kecuali esai</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+"use strict";
+var KKM=75, DURASI=90*60;
+var TOKEN_UJIAN="informatika2026";
+var DRIVE_URL="https://drive.google.com/drive/folders/1w0inhmbiomqGhZjYHoZvFYvR0TXIXCdn?usp=sharing";
+var SS_KEY="uts_informatika_XII_v1";
+var LS_SUBMISSIONS="uts_submissions_informatika_XII";
+var MATCH_OPTS=[["a","Data yang menjelaskan informasi tentang data lain (sumber, tanggal, satuan)"],["b","Fitur spreadsheet untuk merangkum dan mengelompokkan data secara dinamis"],["c","Lisensi yang menyerahkan data ke domain publik (bebas dipakai tanpa atribusi)"],["d","Proses memperbaiki data hilang, duplikat, dan inkonsistensi"],["e","Persetujuan pemilik data atas penggunaan data pribadinya"],["f","Jenis grafik untuk menampilkan perubahan tren waktu"],["g","Perangkat keras penyimpanan data berkapasitas besar"]];
+var Q=[
+{t:"pg",s:2,a:"b",q:"Data yang dapat diakses, digunakan, dan disebarluaskan secara bebas oleh siapa saja dengan syarat tertentu (misal atribusi) disebut …",o:["data rahasia","data terbuka (open data)","data pribadi","data terenkripsi penuh"]},
+{t:"pg",s:2,a:"a",q:"Di bawah ini yang merupakan portal data terbuka resmi pemerintah Indonesia adalah …",o:["data.go.id dan Satu Data Indonesia","facebook.com","tokopedia.com","blog pribadi siswa"]},
+{t:"pg",s:2,a:"b",q:"Kriteria sumber data yang terpercaya, antara lain …",o:["berasal dari akun media sosial anonim","sumber jelas/akuntabel, metodologi diungkapkan, dan data mutakhir","tidak mencantumkan tanggal publikasi","hanya berisi gambar tanpa keterangan"]},
+{t:"pg",s:2,a:"a",q:"Undang-undang di Indonesia yang mengatur tentang pelindungan data pribadi adalah …",o:["UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi","UU No. 13 Tahun 2003 tentang Ketenagakerjaan","UU No. 14 Tahun 2005 tentang Guru dan Dosen","UU No. 18 Tahun 2017 tentang Perkawinan"]},
+{t:"pg",s:2,a:"b",q:"Lisensi Creative Commons yang mengizinkan data digunakan secara bebas bahkan tanpa atribusi (domain publik) adalah …",o:["CC BY-NC-ND","CC0 / Public Domain Dedication","Hak cipta penuh (All Rights Reserved)","Lisensi berbayar tahunan"]},
+{t:"pg",s:2,a:"b",q:"Data yang berisi nama, NIK, alamat, dan nomor telepon seseorang termasuk kategori …",o:["data publik yang bebas disebarluaskan tanpa izin","data pribadi yang penggunaannya harus memenuhi asas legalitas dan persetujuan","data terbuka pemerintah","data anonim yang tidak dapat ditelusuri"]},
+{t:"pg",s:2,a:"b",q:"Metadata adalah …",o:["data yang rusak","data yang menjelaskan informasi tentang data lain (misal sumber, tanggal, satuan, metodologi)","data yang paling besar ukurannya","data yang hanya berupa gambar"]},
+{t:"pg",s:2,a:"b",q:"Tahapan pengolahan data yang bertujuan memperbaiki data yang hilang, duplikat, dan tidak konsisten disebut …",o:["data visualization","data cleaning (pembersihan data)","data deletion","data encryption"]},
+{t:"pg",s:2,a:"b",q:"Untuk mengolah data tabular berukuran besar secara efisien dan berulang (otomatis), alat yang paling tepat dibandingkan mengetik manual adalah …",o:["buku catatan tangan","spreadsheet dengan rumus/pivot tabel atau bahasa pemrograman seperti Python/SQL","menyalin ulang setiap baris","menghafal data"]},
+{t:"pg",s:2,a:"b",q:"Dalam SQL, klausa yang digunakan untuk memfilter baris berdasarkan kondisi tertentu adalah …",o:["ORDER BY","WHERE","GROUP BY","SELECT"]},
+{t:"pg",s:2,a:"a",q:"Fitur pada spreadsheet yang digunakan untuk merangkum dan mengelompokkan data secara dinamis (misal total penjualan per wilayah) adalah …",o:["Pivot Table","WordArt","Header/Footer","Track Changes"]},
+{t:"pg",s:2,a:"b",q:"Saat mengolah data berukuran sangat besar agar efisien, langkah yang TEPAT adalah …",o:["memproses seluruh data sekaligus secara manual tanpa alat bantu","menggunakan otomatisasi (rumus/script), memfilter data yang diperlukan, dan memproses secara bertahap (chunking)","menghapus separuh data secara acak agar cepat","menyalin data ke dalam bentuk gambar"]},
+{t:"pg",s:2,a:"a",q:"ETL adalah singkatan dari …",o:["Extract, Transform, Load","Edit, Type, Link","Evaluate, Test, Launch","Enter, Transfer, Lock"]},
+{t:"pg",s:2,a:"b",q:"Saat memilih sumber data untuk analisis, aspek legal yang harus diperhatikan adalah …",o:["boleh mengambil data apa pun dari internet selama bisa diunduh","memeriksa lisensi, hak cipta, dan kepatuhan terhadap UU Pelindungan Data Pribadi sebelum menggunakan","mengabaikan atribusi karena data internet bebas","menjual data pribadi orang lain tanpa izin"]},
+{t:"pg",s:2,a:"a",q:"Sebuah file data terbuka sebaiknya disediakan dalam format yang mudah diolah, antara lain …",o:["CSV, JSON, atau XLSX","foto hasil scan buram","tulisan tangan di kertas","format eksklusif yang hanya bisa dibuka satu aplikasi berbayar"]},
+{t:"pgk",s:3,a:"b",q:"Berikut pernyataan mengenai data terbuka:",st:["Data terbuka dapat digunakan dan disebarluaskan kembali dengan tetap mematuhi ketentuan lisensinya.","Semua data di internet pasti merupakan data terbuka yang bebas dipakai untuk tujuan komersial.","Portal data.go.id merupakan sumber data terbuka resmi pemerintah Indonesia.","Data pribadi warga dapat diunduh dan disebarluaskan tanpa persetujuan selama bersumber dari internet."]},
+{t:"pgk",s:3,a:"a",q:"Berikut pernyataan mengenai kriteria sumber data terpercaya:",st:["Sumber data yang kredibel mencantumkan metodologi pengumpulan data.","Tanggal publikasi dan pembaruan data perlu diperhatikan agar data mutakhir.","Data dari lembaga resmi (misal BPS) umumnya lebih dapat dipertanggungjawabkan daripada postingan anonim.","Data yang viral di media sosial pasti terpercaya karena banyak yang membagikan."]},
+{t:"pgk",s:3,a:"b",q:"Berikut pernyataan mengenai pengolahan data secara efisien:",st:["Penggunaan rumus dan pivot table pada spreadsheet dapat mengurangi pekerjaan manual berulang.","Data yang hilang (missing value) sebaiknya diabaikan begitu saja tanpa penanganan.","Otomatisasi dengan script (misal Python/SQL) mempercepat pengolahan data berukuran besar.","Setelah data diolah, verifikasi dan validasi hasil tidak diperlukan sama sekali."]},
+{t:"pgk",s:3,a:"a",q:"Berikut pernyataan mengenai aspek legal dan etika penggunaan data:",st:["Atribusi (mencantumkan sumber) perlu dilakukan sesuai ketentuan lisensi data.","UU Pelindungan Data Pribadi mengatur hak individu atas data dirinya.","Mengambil data dengan cara scraping ilegal atau melanggar ketentuan situs tidak dibenarkan.","Data pribadi boleh diperjualbelikan secara bebas tanpa izin pemilik data."]},
+{t:"pgk",s:3,a:"a",q:"Ilustrasi: Anda akan melakukan analisis tingkat pengangguran di kota Anda menggunakan data dari portal data terbuka. Agar analisis efektif dan sah secara hukum, manakah pernyataan berikut yang benar?",st:["Pilih data dari sumber resmi/terpercaya dan periksa lisensi penggunaannya.","Periksa metadata (tahun, satuan, metodologi) agar data sesuai kebutuhan analisis.","Jika data mengandung data pribadi, pastikan penggunaannya memenuhi asas legalitas dan tidak merugikan individu.","Ambil data dari situs mana pun yang muncul pertama di pencarian tanpa memeriksa sumber atau lisensinya."]},
+{t:"match",s:2,a:"a",q:"Metadata"},
+{t:"match",s:2,a:"d",q:"Data Cleaning"},
+{t:"match",s:2,a:"b",q:"Pivot Table"},
+{t:"match",s:2,a:"c",q:"Lisensi CC0"},
+{t:"match",s:2,a:"e",q:"Consent (Persetujuan)"},
+{t:"bs",s:1,a:"s",q:"Data terbuka selalu dapat digunakan tanpa memeriksa ketentuan lisensinya."},
+{t:"bs",s:1,a:"b",q:"Badan Pusat Statistik (BPS) merupakan sumber data yang kredibel untuk data statistik Indonesia."},
+{t:"bs",s:1,a:"b",q:"Data pribadi termasuk data sensitif yang penggunaannya diatur dalam UU Pelindungan Data Pribadi."},
+{t:"bs",s:1,a:"b",q:"Metadata membantu pengguna memahami asal-usul dan cara pengumpulan suatu data."},
+{t:"bs",s:1,a:"s",q:"Membersihkan data duplikat tidak diperlukan dalam pengolahan data."},
+{t:"bs",s:1,a:"b",q:"Pivot Table digunakan untuk merangkum dan mengelompokkan data secara dinamis."},
+{t:"bs",s:1,a:"s",q:"Pengolahan data secara manual selalu lebih efisien daripada menggunakan bantuan komputer untuk data berukuran besar."},
+{t:"bs",s:1,a:"b",q:"Atribusi sumber data perlu dicantumkan jika disyaratkan oleh lisensi."},
+{t:"bs",s:1,a:"b",q:"Format CSV termasuk format data yang mudah diolah oleh berbagai aplikasi."},
+{t:"bs",s:1,a:"s",q:"Klausa WHERE pada SQL digunakan untuk mengurutkan data."},
+{t:"isian",s:3,a:["data.go.id","satu data","bps","badan pusat statistik","world bank","kementerian","opendata","open data"],q:"Sebutkan dua contoh portal/sumber data terbuka resmi yang dapat digunakan untuk analisis! …………………… dan ……………………."},
+{t:"isian",s:3,a:["kosong","missing","duplikat","duplicate","seragam","format","konsisten","bersih","clean","hapus","isi"],min:2,q:"Ilustrasi: data hasil survei mengandung banyak nilai kosong, entri duplikat, dan format tanggal yang tidak seragam. Sebutkan tiga tindakan pembersihan data (data cleaning) yang harus dilakukan sebelum data dianalisis! ……………………, ……………………, dan ……………………."},
+{t:"isian",s:3,a:["extract","transform","load"],min:2,q:"Dalam pengolahan data, ETL merupakan singkatan dari ……………………, ……………………, dan ……………………."},
+{t:"isian",s:3,a:["pivot","rumus","sql","python","script","filter","group","query","kode","macro"],q:"Ilustrasi: siswa memiliki data penjualan 100.000 baris dan ingin mengetahui total penjualan per provinsi secara cepat. Sebutkan dua cara pengolahan berbantuan komputer yang dapat digunakan (bukan perhitungan manual)! …………………… dan ……………………."},
+{t:"isian",s:3,manual:true,q:"Sebutkan dua aspek yang harus diperiksa agar sumber data yang dipakai legal dan terpercaya! …………………… dan ……………………."}
+];
+var SECTION_NAMES=["Bagian I — Pilihan Ganda (15 butir, skor 2)","Bagian II — Pilihan Ganda Komplek (5 butir, skor 3)","Bagian III — Menjodohkan (5 pasang, skor 2)","Bagian IV — Benar-Salah (10 butir, skor 1)","Bagian V — Isian Singkat (5 butir, skor 3)"];
+function sectionOf(i){ if(i<15)return 0; if(i<20)return 1; if(i<25)return 2; if(i<35)return 3; return 4; }
+
+var state={peserta:null, cur:0, answers:new Array(40).fill(null), flags:new Array(40).fill(false),
+  violations:0, endTs:0, remaining:DURASI, timerId:null, running:false, fullscreenOn:false, submitted:false, lastRecord:null};
+
+function $(id){return document.getElementById(id);}
+function showError(m){$("errorText").textContent=m;$("errorBanner").classList.add("show");}
+$("errorClose").addEventListener("click",function(){$("errorBanner").classList.remove("show");});
+
+function showView(v){["viewLogin","viewRules","viewExam","viewWarning","viewResult"].forEach(function(x){$(x).classList.toggle("active",x===v);});
+  window.scrollTo({top:0,behavior:"smooth"});}
+
+function setErr(id,m){$(id).closest(".field").classList.toggle("invalid",!!m);var el=document.querySelector('.err-msg[data-for="'+id+'"]');if(el)el.textContent=m||"";}
+$("loginForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  var n=$("lNama").value.trim(), nis=$("lNis").value.trim(), k=$("lKelas").value, tok=$("lToken").value.trim(), ok=true;
+  if(n.length<3){setErr("lNama","Nama minimal 3 karakter.");ok=false;}else setErr("lNama","");
+  if(!/^\d{4,12}$/.test(nis)){setErr("lNis","Nomor harus angka 4–12 digit.");ok=false;}else setErr("lNis","");
+  if(!k){setErr("lKelas","Pilih kelas.");ok=false;}else setErr("lKelas","");
+  if(!tok){setErr("lToken","Token wajib diisi.");ok=false;}
+  else if(tok.toLowerCase()!==TOKEN_UJIAN){setErr("lToken","Token salah. Minta token kepada panitia UTS.");ok=false;}
+  else setErr("lToken","");
+  if(!ok)return;
+  $("errorBanner").classList.remove("show");
+  state.peserta={nama:n,nis:nis,kelas:k,token:tok};
+  try{sessionStorage.setItem(SS_KEY+"_peserta",JSON.stringify(state.peserta));}catch(x){}
+  showView("viewRules");
+});
+$("btnBackLogin").addEventListener("click",function(){showView("viewLogin");});
+
+$("btnStart").addEventListener("click",function(){
+  try{
+    var el=document.documentElement;
+    if(el.requestFullscreen){var p=el.requestFullscreen();if(p&&p.catch)p.catch(function(){});}
+  }catch(x){}
+  state.fullscreenOn=true;
+  startExam();
+});
+function startExam(){
+  state.running=true; state.submitted=false;
+  state.endTs=Date.now()+state.remaining*1000;
+  $("exName").textContent=state.peserta.nama;
+  $("exMeta").textContent="No. "+state.peserta.nis+" · Kelas "+state.peserta.kelas;
+  buildGrid(); renderQ(); showView("viewExam"); startTimer();
+}
+function startTimer(){
+  if(state.timerId)clearInterval(state.timerId);
+  state.timerId=setInterval(tick,500); tick();
+}
+function tick(){
+  if(!state.running)return;
+  var rem=Math.max(0,Math.round((state.endTs-Date.now())/1000));
+  state.remaining=rem;
+  var mm=String(Math.floor(rem/60)).padStart(2,"0"), ss=String(rem%60).padStart(2,"0");
+  var t=$("timer"); t.textContent=mm+":"+ss;
+  t.classList.toggle("warn",rem<=300);
+  if(rem<=0){submitExam("Waktu habis");}
+}
+function pauseTimer(){state.running=false;if(state.timerId)clearInterval(state.timerId);state.remaining=Math.max(0,Math.round((state.endTs-Date.now())/1000));}
+function resumeTimer(){state.endTs=Date.now()+state.remaining*1000;state.running=true;startTimer();}
+
+function buildGrid(){
+  var g=$("qGrid");g.innerHTML="";
+  for(var i=0;i<40;i++){
+    (function(i){
+      var b=document.createElement("button");b.type="button";b.className="q-num";b.textContent=i+1;b.id="qn"+i;
+      b.addEventListener("click",function(){state.cur=i;renderQ();});
+      g.appendChild(b);
+    })(i);
+  }
+  updateGrid();
+}
+function updateGrid(){
+  var ans=0,fl=0;
+  for(var i=0;i<40;i++){
+    var b=$("qn"+i); if(!b)continue;
+    var answered=state.answers[i]!==null && state.answers[i]!=="";
+    if(answered)ans++; if(state.flags[i])fl++;
+    b.className="q-num"+(answered?" answered":"")+(state.flags[i]?" flagged":"")+(i===state.cur?" current":"");
+  }
+  $("cntAnswered").textContent=ans; $("cntFlagged").textContent=fl;
+}
+function renderQ(){
+  var i=state.cur, q=Q[i];
+  $("qNo").textContent=i+1;
+  $("qSection").textContent=SECTION_NAMES[sectionOf(i)];
+  $("qScore").textContent="skor "+q.s;
+  $("flagChk").checked=state.flags[i];
+  var qt=$("qText"); qt.innerHTML="";
+  var txt=document.createElement("div"); txt.textContent=q.q; qt.appendChild(txt);
+  if(q.st){q.st.forEach(function(s,idx){var sp=document.createElement("span");sp.className="stmt";sp.textContent="("+(idx+1)+"). "+s;qt.appendChild(sp);});}
+  if(q.t==="match" && i===20){var ml=document.createElement("div");ml.className="match-list";MATCH_OPTS.forEach(function(o){var d=document.createElement("div");d.textContent=o[0]+". "+o[1];ml.appendChild(d);});qt.appendChild(ml);}
+  var opts=$("qOptions"); opts.innerHTML="";
+  if(q.t==="pg"||q.t==="pgk"){
+    var letters=q.t==="pgk"?["A","B","C","D","E"]:["a","b","c","d"];
+    var arr=q.o? q.o : letters;
+    arr.forEach(function(label,idx){
+      var l=letters[idx], val=l.toLowerCase();
+      var div=document.createElement("div");div.className="opt"+(state.answers[i]===val?" sel":"");
+      div.innerHTML='<span class="letter">'+l.toUpperCase()+'</span><span>'+(q.o?label:"Pilihan "+l.toUpperCase())+'</span>';
+      div.addEventListener("click",function(){state.answers[i]=val;renderQ();});
+      opts.appendChild(div);
+    });
+    if(q.t==="pgk"){var hint=document.createElement("div");hint.style.cssText="font-size:.78rem;color:var(--muted);margin-top:6px;";hint.textContent="Ketentuan: A=(1),(2),(3) benar · B=(1),(3) benar · C=(2),(4) benar · D=hanya (4) benar · E=semua benar/semua salah.";opts.appendChild(hint);}
+  }else if(q.t==="bs"){
+    ["B","S"].forEach(function(l){
+      var div=document.createElement("div");div.className="opt"+(state.answers[i]===l.toLowerCase()?" sel":"");
+      div.innerHTML='<span class="letter">'+l+'</span><span>'+(l==="B"?"BENAR":"SALAH")+'</span>';
+      div.addEventListener("click",function(){state.answers[i]=l.toLowerCase();renderQ();});
+      opts.appendChild(div);
+    });
+  }else if(q.t==="match"){
+    var sel=document.createElement("select");sel.className="isian-input";
+    var ph=document.createElement("option");ph.value="";ph.textContent="— Pilih huruf jawaban (a–g) —";sel.appendChild(ph);
+    MATCH_OPTS.forEach(function(o){var op=document.createElement("option");op.value=o[0];op.textContent=o[0]+". "+o[1];if(state.answers[i]===o[0])op.selected=true;sel.appendChild(op);});
+    sel.addEventListener("change",function(){state.answers[i]=sel.value||null;renderQ();});
+    opts.appendChild(sel);
+  }else{
+    var inp=document.createElement("textarea");inp.className="isian-input";inp.rows=3;inp.placeholder="Ketik jawaban singkat di sini…";inp.value=state.answers[i]||"";
+    inp.addEventListener("input",function(){state.answers[i]=inp.value;updateGrid();});
+    opts.appendChild(inp);
+    if(q.manual){var note=document.createElement("div");note.style.cssText="font-size:.78rem;color:#8a6414;margin-top:8px;";note.textContent="Soal esai — dinilai manual oleh guru.";opts.appendChild(note);}
+  }
+  $("btnPrev").disabled=(i===0);
+  $("btnNext").innerHTML=(i===39?'<i class="ri-send-plane-line"></i> Kirim Jawaban':'Berikutnya <i class="ri-arrow-right-line"></i>');
+  updateGrid();
+}
+$("flagChk").addEventListener("change",function(){state.flags[state.cur]=$("flagChk").checked;updateGrid();});
+$("btnPrev").addEventListener("click",function(){if(state.cur>0){state.cur--;renderQ();}});
+$("btnNext").addEventListener("click",function(){if(state.cur<39){state.cur++;renderQ();}else{confirmSubmit();}});
+$("btnSubmit").addEventListener("click",confirmSubmit);
+function confirmSubmit(){
+  var unanswered=0;for(var i=0;i<40;i++){if(state.answers[i]===null||state.answers[i]==="")unanswered++;}
+  var msg="Kirim jawaban sekarang?\n"+unanswered+" soal belum dijawab.\nFile jawaban akan otomatis terunduh untuk diunggah ke Drive.";
+  if(window.confirm(msg)){submitExam("Dikirim peserta");}
+}
+
+function violation(reason){
+  if(!state.running||state.submitted)return;
+  state.violations++;
+  updateViolBanner();
+  if(state.violations>=3){submitExam("3× pelanggaran");return;}
+  pauseTimer();
+  $("warnReason").textContent=reason;
+  $("warnCount").textContent=state.violations;
+  showView("viewWarning");
+}
+function updateViolBanner(){
+  var b=$("violBanner"); if(state.violations>0){b.classList.add("show");$("violText").textContent="Pelanggaran tercatat: "+state.violations+"/3 — ujian berakhir otomatis pada pelanggaran ke-3.";}
+}
+$("btnWarnOk").addEventListener("click",function(){resumeTimer();showView("viewExam");});
+
+document.addEventListener("copy",function(e){if(state.running){e.preventDefault();violation("upaya menyalin teks soal");}});
+document.addEventListener("cut",function(e){if(state.running)e.preventDefault();});
+document.addEventListener("paste",function(e){if(state.running)e.preventDefault();});
+document.addEventListener("contextmenu",function(e){if(state.running)e.preventDefault();});
+document.addEventListener("keydown",function(e){
+  if(!state.running)return;
+  if((e.ctrlKey||e.metaKey)&&["c","x","v","u","s","p"].indexOf(e.key.toLowerCase())!==-1){e.preventDefault();violation("tombol pintas salin/tempel terdeteksi");}
+});
+document.addEventListener("visibilitychange",function(){if(document.hidden&&state.running)violation("berpindah tab / meminimalkan jendela");});
+window.addEventListener("blur",function(){if(state.running)setTimeout(function(){if(document.hasFocus&&!document.hasFocus()&&state.running)violation("jendela ujian kehilangan fokus");},300);});
+document.addEventListener("fullscreenchange",function(){
+  if(state.running&&state.fullscreenOn&&!document.fullscreenElement){violation("keluar dari mode layar penuh");}
+});
+
+function gradeIsian(q,ans){
+  if(!ans)return false;
+  var a=ans.toLowerCase();
+  if(q.min){var c=0;q.a.forEach(function(k){if(a.indexOf(k)!==-1)c++;});return c>=q.min;}
+  if(q.a.length===2){return a.indexOf(q.a[0])!==-1&&a.indexOf(q.a[1])!==-1;}
+  for(var i=0;i<q.a.length;i++){if(a.indexOf(q.a[i])!==-1)return true;}
+  return false;
+}
+
+function buildRecord(skor,nilai,benar,salah,reason){
+  var now=new Date();
+  var durasi=Math.round((DURASI-state.remaining)/60);
+  var jawaban=Q.map(function(q,i){
+    var ua=state.answers[i];
+    return {no:i+1, jenis:q.t, skor:q.s, jawaban:(ua===null||ua==="")?"(kosong)":ua, kunci:q.manual?"(esai)":(q.t==="isian"?q.a.join("/"):q.a.toUpperCase())};
+  });
+  return {
+    sekolah:"SMA Seminari St. Yoh. Berkhmans Mataloko",
+    mapel:"Informatika", kelas_fase:"XII / Fase F+", jenis:"PTS 2026/2027",
+    nama:state.peserta.nama, nomor_peserta:state.peserta.nis, kelas:state.peserta.kelas,
+    waktu_selesai:now.toISOString(), waktu_lokal:now.toLocaleString("id-ID"),
+    durasi_menit:durasi, alasan_selesai:reason, pelanggaran:state.violations,
+    skor:skor, skor_maksimum:77, nilai:nilai, status:nilai>=KKM?"TUNTAS":"BELUM TUNTAS",
+    benar:benar, salah:salah, jawaban:jawaban
+  };
+}
+function recordToText(rec){
+  var lines=[];
+  lines.push("============================================================");
+  lines.push("  JAWABAN UJIAN ONLINE PTS INFORMATIKA KELAS XII FASE F+");
+  lines.push("  SMA SEMINARI ST. YOH. BERKHMANS MATALOKO");
+  lines.push("============================================================");
+  lines.push("Nama            : "+rec.nama);
+  lines.push("Nomor Peserta   : "+rec.nomor_peserta);
+  lines.push("Kelas           : "+rec.kelas);
+  lines.push("Waktu Selesai   : "+rec.waktu_lokal);
+  lines.push("Durasi          : "+rec.durasi_menit+" menit");
+  lines.push("Alasan Selesai  : "+rec.alasan_selesai);
+  lines.push("Pelanggaran     : "+rec.pelanggaran+" kali");
+  lines.push("Skor            : "+rec.skor+" / "+rec.skor_maksimum);
+  lines.push("Nilai           : "+rec.nilai+" ("+rec.status+")");
+  lines.push("Benar / Salah   : "+rec.benar+" / "+rec.salah);
+  lines.push("------------------------------------------------------------");
+  lines.push("  DAFTAR JAWABAN");
+  lines.push("------------------------------------------------------------");
+  rec.jawaban.forEach(function(j){
+    lines.push("No. "+String(j.no).padStart(2,"0")+" ["+j.jenis+"] (skor "+j.skor+")");
+    lines.push("   Jawaban : "+j.jawaban);
+    lines.push("   Kunci   : "+j.kunci);
+  });
+  lines.push("============================================================");
+  lines.push("  File ini dihasilkan otomatis oleh sistem ujian online.");
+  lines.push("  Unggah file ini ke folder Drive panitia UTS.");
+  lines.push("============================================================");
+  return lines.join("\n");
+}
+function downloadRecord(rec){
+  try{
+    var blob=new Blob([recordToText(rec)],{type:"text/plain;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    var safe=(rec.nama||"siswa").replace(/[^A-Za-z0-9]+/g,"_");
+    a.href=url; a.download="Jawaban_PTS_Informatika_XII_"+safe+"_"+rec.nomor_peserta+".txt";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){try{URL.revokeObjectURL(url);}catch(e){}},2000);
+    return true;
+  }catch(e){return false;}
+}
+function saveToLocalStorage(rec){
+  try{
+    var arr=[];
+    var raw=localStorage.getItem(LS_SUBMISSIONS);
+    if(raw){try{arr=JSON.parse(raw);}catch(e){arr=[];}}
+    if(!Array.isArray(arr))arr=[];
+    arr.push(rec);
+    localStorage.setItem(LS_SUBMISSIONS,JSON.stringify(arr));
+    return true;
+  }catch(e){return false;}
+}
+$("btnDownload").addEventListener("click",function(){if(state.lastRecord)downloadRecord(state.lastRecord);});
+
+function submitExam(reason){
+  if(state.submitted)return;
+  state.submitted=true; state.running=false;
+  if(state.timerId)clearInterval(state.timerId);
+  try{if(document.exitFullscreen&&document.fullscreenElement)document.exitFullscreen();}catch(x){}
+  var skor=0, benar=0, salah=0, maxAuto=0;
+  var review=[];
+  Q.forEach(function(q,i){
+    var ua=state.answers[i], correct=false, manual=false;
+    if(q.manual){manual=true;}
+    else{
+      maxAuto+=q.s;
+      if(q.t==="isian"){correct=gradeIsian(q,ua);}
+      else{correct=(ua!==null&&ua!==""&&ua.toLowerCase()===q.a.toLowerCase());}
+      if(correct){skor+=q.s;benar++;}else{salah++;}
+    }
+    review.push({i:i,q:q,ua:ua,correct:correct,manual:manual});
+  });
+  var nilai=Math.round(skor/maxAuto*100);
+  var rec=buildRecord(skor,nilai,benar,salah,reason);
+  state.lastRecord=rec;
+  saveToLocalStorage(rec);
+  downloadRecord(rec);
+
+  $("resName").textContent=state.peserta.nama;
+  $("resMeta").textContent="No. "+state.peserta.nis+" · Kelas "+state.peserta.kelas+" · Selesai: "+rec.waktu_lokal;
+  $("resScore").textContent=nilai;
+  $("resBenar").textContent=benar; $("resSalah").textContent=salah; $("resSkor").textContent=skor; $("resViol").textContent=state.violations;
+  var st=$("resStatus");
+  if(nilai>=KKM){st.innerHTML='<span class="pill green"><i class="ri-checkbox-circle-line"></i> TUNTAS (≥ KKM 75)</span>';}
+  else{st.innerHTML='<span class="pill danger"><i class="ri-close-circle-line"></i> BELUM TUNTAS — wajib mengikuti remedi</span>';}
+  var rl=$("reviewList");rl.innerHTML="";
+  review.forEach(function(r){
+    var div=document.createElement("div");
+    div.className="review-item "+(r.manual?"manual":(r.correct?"ok":"no"));
+    var statusTxt=r.manual?'<span class="pill gold">Dinilai guru</span>':(r.correct?'<span class="pill green">Benar +'+r.q.s+'</span>':'<span class="pill danger">Salah</span>');
+    var uaTxt=r.ua===null||r.ua===""?"<em>(kosong)</em>":String(r.ua);
+    var kunci=r.q.manual?"— (esai)":(r.q.t==="isian"?("kata kunci: "+r.q.a.join(", ")):r.q.a.toUpperCase());
+    div.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:6px;"><strong>No. '+(r.i+1)+'</strong> '+statusTxt+'</div>'+
+      '<div style="font-size:.9rem;margin-bottom:6px;">'+escapeHtml(r.q.q)+'</div>'+
+      '<div style="font-size:.85rem;">Jawaban Anda: <strong>'+escapeHtml(uaTxt)+'</strong> · Kunci: <strong>'+escapeHtml(kunci)+'</strong></div>';
+    rl.appendChild(div);
+  });
+  try{sessionStorage.removeItem(SS_KEY+"_peserta");}catch(x){}
+  showView("viewResult");
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+$("btnTutup").addEventListener("click",function(){
+  state={peserta:null,cur:0,answers:new Array(40).fill(null),flags:new Array(40).fill(false),violations:0,endTs:0,remaining:DURASI,timerId:null,running:false,fullscreenOn:false,submitted:false,lastRecord:null};
+  $("loginForm").reset(); showView("viewLogin");
+});
+
+try{var p=sessionStorage.getItem(SS_KEY+"_peserta");if(p){state.peserta=JSON.parse(p);}}catch(x){}
+})();
+</script>
+</body>
+</html>
